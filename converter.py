@@ -2,8 +2,9 @@
 '''
 Converter.py
 
-This file converts from .mp3 files to spectrograms via librosa's
-Short-Term Fourier Transformations (STFT) graphing algorithms.
+This file contains the method convert_wav_file that converts from .wav files to spectrograms via librosa's
+Short-Term Fourier Transformations (STFT) graphing algorithms. Used to preprocess sound files to images for
+Convolutional Neural Networks.
 
 '''
 
@@ -14,35 +15,42 @@ import matplotlib.pyplot as plt
 import librosa
 import librosa.display
 
-# The string path to the exmaple .wav file
-audio_path = "c:/Users/ricoz/Desktop/Python Workspace/BeachBoysHarmonizer/assets/data/doitagain.wav"
+# This method takes in the path to the assets folder containing the .wav audio file to be processed. It transforms the audio file into a spectrogram and saved under the filename as a png
+def convert_wav_file(assets_path, filename):
 
-# Buffer the currently loaded audio file into 
-y, sr = librosa.load(audio_path)
+    # Audio_path is only the path to the assets; apply pathing to the source folder and the save folder
+    audio_path = assets_path + "/source/" + filename + ".wav"
+    output_path = assets_path + "/spectrograms/" + filename + ".png"
 
-# Construct and display a mel-scaled power (energy-squared) spectrogram
-S = librosa.feature.melspectrogram(y, sr=sr, n_mels=128)
+    # Buffer the currently loaded audio file
+    y, sr = librosa.load(audio_path)
 
-# Convert to log scale (dB). We'll use the peak power (max) as reference.
-log_S = librosa.power_to_db(S, ref=np.max)
+    # Construct and display a mel-scaled power (energy-squared) spectrogram
+    S = librosa.feature.melspectrogram(y, sr=sr, n_mels=128)
 
-# Make a new figure
-plt.figure(figsize=(12,4))
+    # Convert to log scale (dB). We'll use the peak power (max) as reference.
+    log_S = librosa.power_to_db(S, ref=np.max)
 
-# Display the spectrogram on a mel scale
-# sample rate and hop length parameters are used to render the time axis
-librosa.display.specshow(log_S, sr=sr, x_axis='time', y_axis='mel')
+    # Make a new figure
+    plt.figure(figsize=(12,4))
 
-# Put a descriptive title on the plot
-plt.title('mel power spectrogram')
+    # Display the spectrogram on a mel scale
+    # sample rate and hop length parameters are used to render the time axis
+    librosa.display.specshow(log_S, sr=sr, x_axis='time', y_axis='mel')
 
-# draw a color bar
-plt.colorbar(format='%+02.0f dB')
+    # Put a descriptive title on the plot
+    plt.title('mel power spectrogram')
 
-# Make the figure layout compact
-plt.tight_layout()
+    # draw a color bar
+    plt.colorbar(format='%+02.0f dB')
 
-# Display the spectrogram
-plt.show()
+    # Make the figure layout compact
+    plt.tight_layout()
 
-print("A wild success!")
+    # Display the spectrogram
+    plt.show()
+
+    # Save the spectrogram in the path folder for the spectrograms as .png's
+    plt.savefig(output_path)
+
+    print("A wild success!")
