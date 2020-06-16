@@ -48,7 +48,7 @@ def convert_wav_file(assets_path, filename):
     plt.tight_layout()
 
     # Display the spectrogram
-    plt.show()
+    # plt.show()
 
     # Save the spectrogram in the path folder for the spectrograms as .png's
     plt.savefig(output_path)
