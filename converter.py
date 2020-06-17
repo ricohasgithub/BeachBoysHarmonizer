@@ -26,8 +26,8 @@ def convert_wav_file(assets_path, filename):
 
     # Output paths for the mel spectrogram and associated array
     output_path = assets_path + "/output/" + filename
-    mel_path = output_path + filename + ".png"
-    pd_arr_path = output_path + filename + ".csv"
+    mel_path = output_path + "/" + filename + ".png"
+    pd_arr_path = output_path + "/" + filename + ".csv"
 
     # Create a new output path
     os.makedirs(output_path)
