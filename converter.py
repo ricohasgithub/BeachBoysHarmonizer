@@ -2,7 +2,7 @@
 '''
 Converter.py
 
-This file contains the method convert_wav_file that converts from .wav files to spectrograms via librosa's
+This file contains the method convert_wav_file that converts from .wav files to mel spectrograms via librosa's
 Short-Term Fourier Transformations (STFT) graphing algorithms. Used to preprocess sound files to images for
 Convolutional Neural Networks.
 
@@ -18,7 +18,7 @@ import librosa.display
 # This method takes in the path to the assets folder containing the .wav audio file to be processed. It transforms the audio file into a spectrogram and saved under the filename as a png
 def convert_wav_file(assets_path, filename):
 
-    # Audio_path is only the path to the assets; apply pathing to the source folder and the save folder
+    # Assets_path is only the path to the assets; apply pathing to the source folder and the save folder
     audio_path = assets_path + "/source/" + filename + ".wav"
     output_path = assets_path + "/spectrograms/" + filename + ".png"
 
