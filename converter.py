@@ -8,19 +8,29 @@ Convolutional Neural Networks.
 
 '''
 
+import os
+
 import numpy as np
+import pandas as pd
 
 import matplotlib.pyplot as plt
 
 import librosa
 import librosa.display
 
-# This method takes in the path to the assets folder containing the .wav audio file to be processed. It transforms the audio file into a spectrogram and saved under the filename as a png
+# This method takes in the path to the assets folder containing the .wav audio file to be processed. It transforms the audio file into a spectrogram (and associated pandas pd array) and saved under the filename as a png
 def convert_wav_file(assets_path, filename):
 
     # Assets_path is only the path to the assets; apply pathing to the source folder and the save folder
     audio_path = assets_path + "/source/" + filename + ".wav"
-    output_path = assets_path + "/spectrograms/" + filename + ".png"
+
+    # Output paths for the mel spectrogram and associated array
+    output_path = assets_path + "/output/" + filename
+    mel_path = output_path + "/spectrograms/" + filename + ".png"
+    pd_arr_path = output_path + "/pd_arr/" + filename + ".csv"
+
+    # Create a new output path
+    os.makedirs(output_path)
 
     # Buffer the currently loaded audio file
     y, sr = librosa.load(audio_path)
@@ -30,6 +40,9 @@ def convert_wav_file(assets_path, filename):
 
     # Convert to log scale (dB). We'll use the peak power (max) as reference.
     log_S = librosa.power_to_db(S, ref=np.max)
+
+    # Save the log_S mel spectrogram array as a seperate file under the same folder as the audio file output
+    np.savetxt(pd_arr_path, log_S, delimiter=",")
 
     # Make a new figure
     plt.figure(figsize=(12,4))
@@ -51,6 +64,6 @@ def convert_wav_file(assets_path, filename):
     # plt.show()
 
     # Save the spectrogram in the path folder for the spectrograms as .png's
-    plt.savefig(output_path)
+    plt.savefig(mel_path)
 
     print("A wild success!")
