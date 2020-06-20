@@ -9,11 +9,11 @@ Short-Term Fourier Transformations (STFT) graphing algorithms to audio (.wav fil
 import numpy as np
 import librosa
 
-# This method takes in the path to the assets folder containing the .png mel spectrogram file to be processed. It transforms the .png file into a .wav audio file under filename
+# This method takes in the path to the assets folder containing the source converted directory (containing the spectrogram file and associated csv file to be processed). It transforms the csv file into a .wav audio file under filename
 def convert_mel_file(assets_path, filename):
 
     # Assets_path is only the path to the assets; apply pathing to the source folder and the save folder
-    mel_path = assets_path + "/spectrograms/" + filename + ".png"
-    audio_path = assets_path + "/audio/" + filename + ".wav"
+    input_path = assets_path + "/output/" + filename
+    pd_arr_path = output_path + "/" + filename + ".csv"
 
     # librosa.feature.inverse.mel_to_audio()
