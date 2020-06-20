@@ -14,6 +14,6 @@ def convert_mel_file(assets_path, filename):
 
     # Assets_path is only the path to the assets; apply pathing to the source folder and the save folder
     input_path = assets_path + "/output/" + filename
-    pd_arr_path = output_path + "/" + filename + ".csv"
+    pd_arr_path = input_path + "/" + filename + ".csv"
 
     # librosa.feature.inverse.mel_to_audio()
