@@ -24,6 +24,31 @@ def convert_wav_file(assets_path, filename):
     # Assets_path is only the path to the assets; apply pathing to the source folder and the save folder
     audio_path = assets_path + "/source/" + filename + ".wav"
 
+    # Buffer the currently loaded audio file
+    y, sr = librosa.load(audio_path)
+
+    # Get the number of 5 second samples to be iterated over
+    buffer = 5 * sr
+
+    # Get the iteration operands for audio spliting
+    splits_total = len(y)
+    splits_written = 0
+    splits_counter = 1
+
+    while splits_written < splits_total:
+
+        # Check to see if the buffer is exceeding total samples 
+        if buffer > (splits_total - splits_written):
+            buffer = splits_total - splits_written
+
+        block = y[splits_written : (splits_written + buffer)]
+        out_filename = "split_" + str(splits_counter) + "_" + filename
+
+        # Write 2 second segment
+        librosa.output.write_wav(out_filename, block, sr)
+        splits_counter += 1
+        splits_written += buffer
+
     # Output paths for the mel spectrogram and associated array
     output_path = assets_path + "/output/" + filename
     mel_path = output_path + "/" + filename + ".png"
@@ -31,9 +56,6 @@ def convert_wav_file(assets_path, filename):
 
     # Create a new output path
     os.makedirs(output_path)
-
-    # Buffer the currently loaded audio file
-    y, sr = librosa.load(audio_path)
 
     # Construct and display a mel-scaled power (energy-squared) spectrogram
     S = librosa.feature.melspectrogram(y, sr=sr, n_mels=128)
