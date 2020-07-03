@@ -70,9 +70,9 @@ def convert_wav_file(assets_path, filename):
         splits_counter += 1
         splits_written += buffer
 
-
     print("A wild success!")
 
+# This method reads the saved audio splice in wav_path and converts it to a mel spectrogram and associate array
 def convert_split_file (wav_path, mel_path, pd_arr_path):
 
     # Load the new spliced audio file
