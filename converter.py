@@ -56,7 +56,7 @@ def convert_wav_file(assets_path, filename):
         os.makedirs(split_path)
 
         # Output paths for the truncated wav file, mel spectrogram and associated array
-        wav_path = split_path + ".wav"
+        wav_path = split_path + "/" + filename + ".wav"
         mel_path = split_path + "/" + filename + ".png"
         pd_arr_path = split_path + "/" + filename + ".csv"
 
