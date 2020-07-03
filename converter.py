@@ -50,7 +50,7 @@ def convert_wav_file(assets_path, filename):
         block = y[splits_written : (splits_written + buffer)]
 
         # Create a new output path for the current split
-        split_path = output_path + str(splits_counter) + filename
+        split_path = output_path + "/" + str(splits_counter) + filename
 
         # Create the new split audio directory
         os.makedirs(split_path)
